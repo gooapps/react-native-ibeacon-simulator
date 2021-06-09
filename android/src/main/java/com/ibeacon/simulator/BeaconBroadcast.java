@@ -100,7 +100,6 @@ public class BeaconBroadcast extends ReactContextBaseJavaModule {
                     .setManufacturer(manufacturer)
                     .setBluetoothName(identifier)
                     .setDataFields(dataReceive)
-                    .setParserIdentifier(identifier)
                     .setTxPower(txPower)
                     .build();
             BeaconParser beaconParser = new BeaconParser()
@@ -122,6 +121,7 @@ public class BeaconBroadcast extends ReactContextBaseJavaModule {
                 }
             });
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             onError.invoke(ex.getMessage());
         }
     }
