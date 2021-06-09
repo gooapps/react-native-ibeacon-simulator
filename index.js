@@ -44,8 +44,8 @@ else {
         });
       });
     },
-    startAdvertisingBeaconWithString: function (uuid, identifier, major, minor, txPower, onError) {
-      NativeBeaconBroadcast.startSharedAdvertisingBeaconWithString(uuid, major, minor, identifier, txPower, onError);
+    startAdvertisingBeaconWithString: function (uuid, identifier, major, minor, txPower, data, onError) {
+      NativeBeaconBroadcast.startSharedAdvertisingBeaconWithString(uuid, major, minor, identifier, txPower, data, onError);
     },
 
     stopAdvertisingBeacon: function () {

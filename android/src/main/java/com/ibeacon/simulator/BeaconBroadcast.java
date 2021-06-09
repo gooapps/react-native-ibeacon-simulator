@@ -89,7 +89,6 @@ public class BeaconBroadcast extends ReactContextBaseJavaModule {
 
         for (int i = 0; i< data.size(); i++){
             Object value = data.getInt(i);
-            System.out.println(value);
             dataReceive.add(Long.parseLong(value.toString()));
         }
 
@@ -101,14 +100,15 @@ public class BeaconBroadcast extends ReactContextBaseJavaModule {
                     .setManufacturer(manufacturer)
                     .setBluetoothName(identifier)
                     .setDataFields(dataReceive)
+                    .setParserIdentifier(identifier)
                     .setTxPower(txPower)
                     .build();
             BeaconParser beaconParser = new BeaconParser()
-                    .setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24");
+                    .setBeaconLayout(BeaconParser.ALTBEACON_LAYOUT);
 
             this.beaconTransmitter = new BeaconTransmitter(context, beaconParser);
             this.beaconTransmitter.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY);
-            this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
+            this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_ULTRA_LOW);
             this.beaconTransmitter.startAdvertising(beacon, new AdvertiseCallback() {
 
                 @Override
