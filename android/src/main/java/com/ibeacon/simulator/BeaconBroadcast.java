@@ -83,8 +83,14 @@ public class BeaconBroadcast extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void startSharedAdvertisingBeaconWithString(String uuid, int major, int minor, String identifier, Callback onError) {
+    public void startSharedAdvertisingBeaconWithString(String uuid, int major, int minor, String identifier, int txPower, ReadableArray data, Callback onError) {
         int manufacturer = 0x4C;
+        List<Long> dataReceive = new ArrayList<>();
+
+        for (int i = 0; i< data.size(); i++){
+            Object value = data.getInt(i);
+            dataReceive.add(Long.parseLong(value.toString()));
+        }
 
         try {
             Beacon beacon = new Beacon.Builder()
@@ -93,7 +99,8 @@ public class BeaconBroadcast extends ReactContextBaseJavaModule {
                     .setId3(String.valueOf(minor))
                     .setManufacturer(manufacturer)
                     .setBluetoothName(identifier)
-                    .setTxPower(-56)
+                    .setDataFields(dataReceive)
+                    .setTxPower(txPower)
                     .build();
             BeaconParser beaconParser = new BeaconParser()
                     .setBeaconLayout(BeaconParser.ALTBEACON_LAYOUT);
